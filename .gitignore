@@ -6,6 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
+**/.idea/**
+
 # Firebase auth
 src/firebase.py 
 

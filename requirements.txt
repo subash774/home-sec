@@ -1,3 +1,4 @@
 cv2
 flask
 numpy
+pyrebase

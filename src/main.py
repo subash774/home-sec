@@ -1,8 +1,13 @@
-from flask import Flask, render_template, Response
+from flask import Flask
+import pyrebase
+from src import firebase
 
 app = Flask(__name__)
 
-# TODO: Add firebase for auth, used for streaming
+config = firebase.get_credentials()
+firebase = pyrebase.initialize_app(config)
+auth = firebase.auth()
+
 
 @app.route('/')
 def index():

@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# Firebase auth
+src/firebase.py 
+
 # Distribution / packaging
 .Python
 build/

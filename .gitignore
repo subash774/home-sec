@@ -7,9 +7,10 @@ __pycache__/
 *.so
 
 **/.idea/**
+**/.avi
 
 # Firebase auth
-src/firebase.py 
+**/firebase.py
 
 # Distribution / packaging
 .Python

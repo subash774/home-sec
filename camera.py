@@ -17,7 +17,7 @@ class VideoCamera(object):
         file_dir = os.path.dirname(os.path.abspath(__file__))
         self.out = cv2.VideoWriter(file_dir + '/' + now + '.avi',
                                    cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'),  # Could also use XVID
-                                   self.frame_rate,
+                                   12,
                                    (self.frame_width, self.frame_height))
 
     """

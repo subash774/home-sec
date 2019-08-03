@@ -15,7 +15,7 @@ class VideoCamera(object):
         now = datetime.datetime.now()
         now = now.strftime("%Y-%m-%d")
         file_dir = os.path.dirname(os.path.abspath(__file__))
-        self.out = cv2.VideoWriter(file_dir + '/' + now + '.avi',
+        self.out = cv2.VideoWriter(file_dir + '/footage/' + now + '.avi',
                                    cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'),  # Could also use XVID
                                    12,
                                    (self.frame_width, self.frame_height))

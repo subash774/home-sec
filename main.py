@@ -1,4 +1,4 @@
-from flask import Flask, Response, render_template
+from flask import Flask, Response, render_template, request
 import pyrebase
 import firebase
 from camera import VideoCamera
@@ -20,14 +20,32 @@ def gen(feed):
 
 @app.route('/video_feed')
 def video_feed():
-    return Response(gen(VideoCamera()),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
+    global user
+    try:
+        if user:
+            return Response(gen(VideoCamera()),
+                            mimetype='multipart/x-mixed-replace; boundary=frame')
+    except Exception as e:
+        return 404
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
-    # return "Hello world"
+    unsuccessful = 'Please check your credentials'
+    if request.method == 'POST':
+        email = request.form['name']
+        password = request.form['pass']
+        try:
+            global user
+            user = auth.sign_in_with_email_and_password(email, password)
+            if user:
+                return render_template('index.html')
+            else:
+                return render_template('login.html', us=unsuccessful)
+        except:
+            return render_template('login.html', us=unsuccessful)
+
+    return render_template('login.html')
 
 
 if __name__ == '__main__':

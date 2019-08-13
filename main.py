@@ -56,24 +56,6 @@ def video_feed():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    global current_hour, threads, kill
-    print(current_hour)
-    now = datetime.datetime.now().time().hour
-    if len(threads) == 0:
-        kill = False
-        t1 = Thread(target=record)
-        threads.append(t1)
-        t1.start()
-        current_hour = now
-        print("Starting ...")
-
-    else:
-        if current_hour != now:
-            print("Not the same \n changing threads")
-            kill = True
-            del threads[:]
-            current_hour = now
-
     unsuccessful = 'Please check your credentials'
     if request.method == 'POST':
         email = request.form['name']
@@ -87,6 +69,22 @@ def index():
             return render_template('login.html', us=unsuccessful)
 
     return render_template('login.html')
+
+
+@app.route('/start', methods=['GET'])
+def start():
+    global threads, kill
+    if len(threads) == 0:
+        kill = False
+        t1 = Thread(target=record)
+        threads.append(t1)
+        t1.start()
+        print("Starting ...")
+    else:
+        kill = True
+        del threads[:]
+
+    return "started"
 
 
 if __name__ == "__main__":
